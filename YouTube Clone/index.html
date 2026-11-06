@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Clone</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <style>
+        html{
+            font-size: 62.5%;
+        }
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        header{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6rem;
+            border-bottom: 1px solid rgb(222, 218, 218);
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            width: 100vw;
+            background-color: rgb(255, 255, 255);
+            padding-right: 2.5rem;
+            z-index: 1;
+        }
+        section{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        .utube-logo{
+            width: 90px;
+        }
+        .hambergur{
+            width: 25px;
+            margin:0 2rem;
+        }
+        
+        .middle-section{
+            margin: 0 3.5rem;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .middle-section img{
+            width: 2.6rem;
+        }
+        .middle-section .search-btn{
+            border: 1px solid rgb(212, 211, 211);
+            border-radius: 2px;
+            padding: 0.45rem 2rem;
+            margin-left: -0.3rem;
+            background-color: rgb(245, 245, 245);
+            cursor:pointer
+        }
+        .middle-section .search-btn:hover{
+            background-color: rgb(225, 225, 225);
+        }
+        .middle-section .voice-search-btn{
+            border: none;
+            border-radius: 50%;
+            padding: 0.3rem 0.4rem;
+            margin-left: 1rem;
+            background-color: rgb(245, 245, 245);
+        }
+        .inp{
+            border: 1px solid rgb(211, 209, 209);
+            border-radius: 2px;
+            padding: 1rem;
+            font-size: 1.5rem;
+            flex:1;
+            width: 0;
+            max-width: 40%;
+        }
+        .right-section{
+            display: flex;
+            justify-content: space-between;
+        }
+        .right-section div{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+
+        }
+        .right-section span{
+            position: absolute;
+            top: 3rem;
+            white-space: nowrap;
+
+            padding: 0.4rem 0.6rem;
+            border-radius: 8%;
+            background-color: rgb(194, 190, 190);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+        .right-section div:hover span{
+            opacity: 1;
+        }
+        .right-section div img{
+            margin: 0 1rem;
+            width: 2.8rem;
+            cursor: pointer;
+        }
+        .noti-count{
+            position: absolute;
+            right: 0.5rem;
+            top: -0.2rem;
+            background-color: rgb(205, 11, 11);
+            color: white;
+            padding: 0.2rem 0.55rem;
+            border: solid 0.2rem white;
+            border-radius: 50%;
+        }
+        nav{
+            position: fixed;
+            top: 5.9rem;
+            left: 0;
+            bottom: 0;
+            width: 8rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 1;
+            background-color: rgb(255, 255, 255);
+        }
+        nav section{
+            display: flex;
+            flex-direction: column;
+            font-size: 1.03rem;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            width: 100%;
+        }
+        nav section:hover{
+            background-color: rgb(234, 231, 231);
+        }
+        nav section img{
+            margin-bottom: 0.65rem;
+            width: 2.5rem;
+        }
+        main{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+            gap: 2rem;
+            padding: 8.5rem 2rem 0 10.5rem;
+            background-color: rgb(245, 245, 245);
+        }
+        main section{
+            display: flex;
+            flex-direction: column;
+        }
+        .thumb-div{
+            position: relative;
+        }
+        .duration{
+            position: absolute;
+            bottom: 0.9rem;
+            right: 0.5rem;
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+            padding: 0.45rem 0.4rem;
+            font: normal 500 1.2rem 'roboto';
+            border-radius: 10%;
+        }
+        .thumb-div img{
+            width: 100%;
+        }
+        .info-div{
+            display: flex;
+            flex-direction: row;
+            padding: 1rem 0;
+            line-height: 1.8rem;
+            width: 100%;
+        }
+        .info-div img{
+            border-radius: 50%;
+            width: 40px;
+        }
+        .profile-div{
+            margin-right: 1rem;
+        }
+        .title{
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        .channel-name{
+            color: rgb(111, 110, 110);
+            font-size: 1.2rem;
+            margin: 0.6rem 0 0 0;
+        }
+        .views{
+            color: rgb(111, 110, 110);
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <section class="left-section">
+            <img class="hambergur" src="Icons/hamburger-menu.svg">
+            <img class="utube-logo" src="Icons/youtube-logo.svg">
+        </section>
+        <section class="middle-section">
+            <input class="inp" type="text" placeholder="Search">
+            <button class="search-btn"><img src="Icons/search.svg"></button>
+            <button class="voice-search-btn"><img src="Icons/voice-search-icon.svg"></button>
+        </section>
+        <section class="right-section">
+            <div><img src="Icons/upload.svg"><span>Create</span></div>
+            <div><img src="Icons/youtube-apps.svg"><span>YouTube Apps</span></div>
+            <div><img src="Icons/notifications.svg"><span>Notifications</span><p class="noti-count">3</p></div>
+            <div><img src="Profiles/my-channel.jpeg"><span>My Channel</span></div>
+        </section>
+    </header>
+
+    <nav>
+        <section><img src="Icons/home.svg">Home</section>
+        <section><img src="Icons/explore.svg">Explore</section>
+        <section><img src="Icons/subscriptions.svg">Subscriptions</section>
+        <section><img src="Icons/originals.svg">Originals</section>
+        <section><img src="Icons/youtube-music.svg">YouTube Music</section>
+        <section><img src="Icons/library.svg">Library</section>
+    </nav>
+
+    <main>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-1.webp">
+                <p class="duration">14:20</p>
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-1.jpeg">
+                </div>
+                <div>
+                    <p class="title">Talking Tech and AI with Google CEO Sundar Pichai!</p>
+                    <p class="channel-name">Marques Brownlee</p>
+                    <p class="views">3.4M views · 6 months ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-2.webp">
+                <p class="duration">8:22</p>
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-2.jpeg">
+                </div>
+                <div>
+                    <p class="title">Try Not To Laugh Challenge #9</p>
+                    <p class="channel-name">Markiplier</p>
+                    <p class="views">19M views · 4 years ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-3.webp">
+                <p class="duration">9:13</p>
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-3.jpeg">
+                </div>
+                <div>
+                    <p class="title">Crazy Tik Toks Taken Moments Before DISASTER</p>
+                    <p class="channel-name">SSSniperWolf</p>
+                    <p class="views">12M views · 1 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-4.webp">
+                <p class="duration">22:09</p>
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-4.jpeg">
+                </div>
+                <div>
+                    <p class="title">The Simplest Math Problem No One Can Solve - Collatz Conjecture</p>
+                    <p class="channel-name">Veritasium</p>
+                    <p class="views">18M views · 4 months ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-5.webp">
+                <p class="duration">11:17</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-5.jpeg">
+                </div>
+                <div>
+                    <p class="title">Kadane's Algorithm to Maximum Sum Subarray Problem</p>
+                    <p class="channel-name">CS Dojo</p>
+                    <p class="views">519K views · 5 years ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-6.webp">
+                <p class="duration">19:59</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-6.jpeg">
+                </div>
+                <div>
+                    <p class="title">Anything You Can Fit In The Circle I’ll Pay For</p>
+                    <p class="channel-name">MrBeast</p>
+                    <p class="views">141M views · 1 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-7.webp">
+                <p class="duration">10:13</p>
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-7.jpeg">
+                </div>
+                <div>
+                    <p class="title">Why Planes Don't Fly Over Tibet</p>
+                    <p class="channel-name">RealLifeLore</p>
+                    <p class="views">6.6M views · 1 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-8.webp">
+                <p class="duration">7:12</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-8.jpeg">
+                </div>
+                <div>
+                    <p class="title">Inside The World's Biggest Passenger Plane</p>
+                    <p class="channel-name">Tech Vision</p>
+                    <p class="views">3.7M views · 10 months ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-9.webp">
+                <p class="duration">13:17</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-9.jpeg">
+                </div>
+                <div>
+                    <p class="title">The SECRET to Super Human STRENGTH</p>
+                    <p class="channel-name">ThenX</p>
+                    <p class="views">20M views · 3 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-10.webp">
+                <p class="duration">7:53</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-10.jpeg">
+                </div>
+                <div>
+                    <p class="title">How The World's Largest Cruise Ship Makes 30,000 Meals Every Day</p>
+                    <p class="channel-name">Business Insider</p>
+                    <p class="views">14M views · 1 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-11.webp">
+                <p class="duration">4:10</p>   
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-11.jpeg">
+                </div>
+                <div>
+                    <p class="title">Dubai's Crazy Underwater Train and Other Things #Only in Dubai</p>
+                    <p class="channel-name">Destination Tips</p>
+                    <p class="views">3M views · 1 year ago</p>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="thumb-div">
+                <img src="Thumbnails/thumbnail-12.webp">
+                <p class="duration">4:51</p>       
+            </div>
+            <div class="info-div">
+                <div class="profile-div">
+                    <img src="Profiles/channel-12.jpeg">
+                </div>
+                <div>
+                    <p class="title">What would happen if you didn’t drink water? - Mia Nacamulli</p>
+                    <p class="channel-name">TED-Ed</p>
+                    <p class="views">12M views · 5 years ago</p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+</body>
+</html>
